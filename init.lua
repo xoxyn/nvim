@@ -395,3 +395,11 @@ local layout = {
 }
 
 alpha.setup({ layout = layout, opts = {} })
+
+vim.api.nvim_create_user_command("Digraphs", function()
+  vim.cmd("new")
+  vim.bo.buftype = "nofile"
+  vim.bo.bufhidden = "wipe"
+  vim.cmd("put =execute('digraphs')")
+  vim.cmd("1delete")
+end, {})
