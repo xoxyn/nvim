@@ -121,13 +121,15 @@ keymap("n", "<leader>r", function()
             vim.cmd('terminal ' .. cmake_commands)
         else
             -- Fall back to single-file compilation
-            local filename = vim.fn.expand('%')
-            local output = '/tmp/' .. vim.fn.expand('%:t:r')
+            local filename = vim.fn.shellescape(vim.fn.expand('%'))
+            local output = vim.fn.shellescape('/tmp/' .. vim.fn.expand('%:t:r'))
+            local std = '-std=c++17'
+            local warnings = '-Wall -Wextra -Wpedantic'
 
             if filetype == 'cpp' then
-                vim.cmd('terminal g++ ' .. filename .. ' -o ' .. output .. ' && ' .. output)
+                vim.cmd('terminal g++ ' .. std .. ' ' .. warnings .. ' ' .. filename .. ' -o ' .. output .. ' && ' .. output)
             elseif filetype == 'c' then
-                vim.cmd('terminal gcc ' .. filename .. ' -o ' .. output .. ' && ' .. output)
+                vim.cmd('terminal gcc ' .. warnings .. ' ' .. filename .. ' -o ' .. output .. ' && ' .. output)
             end
         end
     else
