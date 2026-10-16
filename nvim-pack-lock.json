@@ -12,6 +12,10 @@
       "rev": "456d38d1cd3743926f329204c2340f3e7840aad6",
       "src": "https://github.com/saghen/blink.cmp"
     },
+    "cmake-tools.nvim": {
+      "rev": "ee807ac4e62591720de2f6ad0abbfb966c4c7b97",
+      "src": "https://github.com/Civitasv/cmake-tools.nvim"
+    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"

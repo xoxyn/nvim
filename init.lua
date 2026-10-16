@@ -1,6 +1,6 @@
 require("lsp")
 require("keymaps")
-
+require("builds_cpp")
 
 local colors = {
     black      = "#000000",
@@ -74,6 +74,7 @@ vim.pack.add({ gh('goolord/alpha-nvim') })
 vim.pack.add({ gh('3rd/image.nvim') })
 vim.pack.add({ gh('stevearc/conform.nvim') }) -- Added: formatter (prettier etc.)
 -- vim.pack.add({ gh('vhyrro/luarocks.nvim') }) -- only if using magick_rock
+vim.pack.add({ gh('Civitasv/cmake-tools.nvim') })
 
 
 
@@ -300,7 +301,7 @@ require('nvim-treesitter').setup {
     install_dir = vim.fn.stdpath('data') .. '/site',
 }
 
-require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake'}
+require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake' }
 
 require('image').setup({
     backend = "kitty",
@@ -309,6 +310,51 @@ require('image').setup({
         markdown = { enabled = true },
     },
     max_height_window_percentage = 50,
+})
+
+require("cmake-tools").setup({
+    cmake_use_preset = true,
+    cmake_regenerate_on_save = true,
+    cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" },
+    cmake_build_directory = "build/${variant:buildType}",
+
+    -- symlink compile_commands.json into the project root for clangd
+    -- cmake_compile_commands_options = {
+    --     action = "soft_link",
+    --     target = vim.loop.cwd,
+    -- },
+
+    -- builds go to quickfix so errors are jumpable
+    cmake_executor = {
+        name = "quickfix",
+        opts = {
+            show = "only_on_error",
+            position = "belowright",
+            size = 12,
+        },
+    },
+
+    -- the program runs in toggleterm so interactive I/O works
+    cmake_runner = {
+        name = "toggleterm",
+        opts = {
+            direction = "horizontal",
+            close_on_exit = false,
+            auto_scroll = true,
+            singleton = true,
+        },
+    },
+
+    cmake_notifications = {
+        runner = { enabled = true },
+        executor = { enabled = true },
+        spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }, -- icons used for progress display
+        refresh_rate_ms = 100, -- how often to iterate icons
+    },
+
+    -- set to true if you want the target name shown at the right edge;
+    -- off here so it doesn't crowd incline's filename label
+    cmake_virtual_text_support = false,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -397,9 +443,9 @@ local layout = {
 alpha.setup({ layout = layout, opts = {} })
 
 vim.api.nvim_create_user_command("Digraphs", function()
-  vim.cmd("new")
-  vim.bo.buftype = "nofile"
-  vim.bo.bufhidden = "wipe"
-  vim.cmd("put =execute('digraphs')")
-  vim.cmd("1delete")
+    vim.cmd("new")
+    vim.bo.buftype = "nofile"
+    vim.bo.bufhidden = "wipe"
+    vim.cmd("put =execute('digraphs')")
+    vim.cmd("1delete")
 end, {})
