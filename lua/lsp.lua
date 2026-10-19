@@ -166,3 +166,12 @@ start('neocmake', {
     filetypes = { 'cmake' },
     root_markers = { 'CMakeLists.txt', '.git' },
 })
+
+start('emmet_language_server', {
+    cmd = { 'emmet-language-server', '--stdio' },
+    filetypes = { 'html', 'css', 'scss', 'less', 'javascriptreact', 'typescriptreact', 'svelte' },
+    root_markers = { 'package.json', '.git' },
+    init_options = {
+        showExpandedAbbreviation = "always",
+    },
+})

@@ -71,14 +71,15 @@ vim.pack.add({ gh('MunifTanjim/nui.nvim') })
 vim.pack.add({ gh('rcarriga/nvim-notify') })
 vim.pack.add({ gh('folke/trouble.nvim') })
 vim.pack.add({ gh('goolord/alpha-nvim') })
+vim.pack.add({ gh('windwp/nvim-ts-autotag') })
 vim.pack.add({ gh('3rd/image.nvim') })
 vim.pack.add({ gh('stevearc/conform.nvim') }) -- Added: formatter (prettier etc.)
 -- vim.pack.add({ gh('vhyrro/luarocks.nvim') }) -- only if using magick_rock
 vim.pack.add({ gh('Civitasv/cmake-tools.nvim') })
 
 
-
 require('trouble').setup()
+require('nvim-ts-autotag').setup()
 require('dressing').setup()
 
 require('notify').setup({
@@ -195,8 +196,10 @@ require('lualine').setup({
 require('blink.cmp').setup({
     keymap = {
         preset        = "none",
-        ["<Tab>"]     = { "select_next", "fallback" },
-        ["<S-Tab>"]   = { "select_prev", "fallback" },
+        ["<Tab>"]     = { "snippet_forward", "select_and_accept", "fallback" },
+        ["<S-Tab>"]   = { "snippet_backward", "fallback" },
+        ["<C-n>"]     = { "select_next", "fallback" },
+        ["<C-p>"]     = { "select_prev", "fallback" },
         ["<CR>"]      = { "accept", "fallback" },
         ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"]     = { "hide" },
