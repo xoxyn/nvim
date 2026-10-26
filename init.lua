@@ -43,6 +43,7 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
+opt.guicursor = ""
 
 -- Plugins --
 
