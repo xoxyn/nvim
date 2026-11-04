@@ -19,6 +19,7 @@ keymap("n", "<leader>tm", function()
         mono_active = true
     end
 end)
+keymap({ "n", "v" }, "<leader>d", '"_d', { desc = "Black hole delete" })
 keymap('n', '<leader>ft', '<cmd>TodoTelescope<CR>')
 keymap('n', '<C-u>', '<C-u>zz')
 keymap('n', '<C-d>', '<C-d>zz')
