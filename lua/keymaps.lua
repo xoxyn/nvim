@@ -67,6 +67,44 @@ keymap("n", "<leader>ts", function()
     end
 end)
 
+-- gitsigns
+keymap("n", "<leader>gb",
+    function()
+        require("gitsigns").blame_line()
+    end
+)
+
+keymap("n",
+    "<leader>gB",
+    function()
+        require("gitsigns").blame()
+    end
+)
+
+keymap("n",
+    "<leader>gs",
+    function()
+        local gs = require("gitsigns")
+        if #(gs.get_hunks() or {}) > 0 then
+            gs.stage_buffer()
+        else
+            gs.reset_buffer_index()
+        end
+    end
+)
+
+keymap("n",
+    "<leader>gh",
+    function()
+        require("gitsigns").stage_hunk()
+    end
+)
+
+-- Codediff
+keymap("n", "<leader>dv", "<cmd>CodeDiff<cr>")
+keymap("n", "<leader>dh", "<cmd>CodeDiff history %<cr>")
+keymap("n", "<leader>dH", "<cmd>CodeDiff history<cr>")
+
 -- img preview keybinds
 keymap("n", "<leader>ti", function()
     local img = require("image")
