@@ -16,6 +16,10 @@
       "rev": "ee807ac4e62591720de2f6ad0abbfb966c4c7b97",
       "src": "https://github.com/Civitasv/cmake-tools.nvim"
     },
+    "codediff.nvim": {
+      "rev": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e",
+      "src": "https://github.com/esmuellert/codediff.nvim"
+    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
