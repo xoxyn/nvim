@@ -74,6 +74,7 @@ vim.pack.add({ gh('folke/trouble.nvim') })
 vim.pack.add({ gh('goolord/alpha-nvim') })
 vim.pack.add({ gh('windwp/nvim-ts-autotag') })
 vim.pack.add({ gh('3rd/image.nvim') })
+vim.pack.add({ gh('esmuellert/codediff.nvim') })
 vim.pack.add({ gh('stevearc/conform.nvim') }) -- Added: formatter (prettier etc.)
 -- vim.pack.add({ gh('vhyrro/luarocks.nvim') }) -- only if using magick_rock
 vim.pack.add({ gh('Civitasv/cmake-tools.nvim') })
@@ -136,6 +137,24 @@ require('telescope').setup({
         winblend         = 0,
         color_devicons   = false,
     },
+})
+
+require("codediff").setup({
+    -- explorer = {
+    --   formatters = {
+    --     group = function(ctx)
+    --       return {
+    --         left = {{
+    --           segments = {{ text = " " .. ctx.label, hl = "CodeDiffExplorerTreeGroup" }},
+    --           truncate_priority = 1,
+    --         }},
+    --         right = {{
+    --           segments = {{ text = ctx.file_count .. " files", hl = "Number" }},
+    --         }},
+    --       }
+    --     end,
+    --   },
+    -- },
 })
 
 require('todo-comments').setup()
