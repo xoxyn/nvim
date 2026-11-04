@@ -45,6 +45,7 @@ opt.foldlevelstart = 99
 opt.foldenable = true
 opt.guicursor = ""
 
+vim.loader.enable();
 -- Plugins --
 
 local gh = function(x) return 'https://github.com/' .. x end
