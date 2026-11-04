@@ -376,10 +376,10 @@ vim.api.nvim_create_autocmd('FileType', {
 local builtin = require('telescope.builtin')
 
 local keymap = vim.keymap.set
-keymap('n', '<leader>ff', builtin.find_files)
-keymap('n', '<leader>fg', builtin.live_grep)
-keymap('n', '<leader>fb', builtin.buffers)
-keymap('n', '<leader>fh', builtin.help_tags)
+keymap('n', ';f', builtin.find_files)
+keymap('n', ';r', builtin.live_grep)
+keymap('n', ';b', builtin.buffers)
+keymap('n', ';h', builtin.help_tags)
 
 vim.cmd("syntax off")
 vim.cmd("highlight Normal guibg=#000000")
