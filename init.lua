@@ -50,6 +50,7 @@ vim.loader.enable();
 
 local gh = function(x) return 'https://github.com/' .. x end
 vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' })
+vim.pack.add({ gh('nvim-treesitter/nvim-treesitter-context') })
 vim.pack.add({ gh('stevearc/oil.nvim') })
 vim.pack.add({ gh('williamboman/mason.nvim') })
 vim.pack.add({ gh('williamboman/mason-lspconfig.nvim') })
@@ -325,8 +326,18 @@ require('nvim-treesitter').setup {
     install_dir = vim.fn.stdpath('data') .. '/site',
 }
 
+require('treesitter-context').setup({
+    enable = true,
+    max_lines = 3,
+    trim_scope = 'inner',
+    mode = 'cursor',
+    multiline_threshold = 1,
+    separator = nil,
+})
+
+
 -- Parsers
-require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake', 'glsl', 'markdown_inline', 'regex', 'luadoc', 'vim', 'diff'}
+require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake', 'glsl', 'markdown_inline', 'regex', 'luadoc', 'vim', 'diff' }
 
 require('image').setup({
     backend = "kitty",
@@ -434,6 +445,12 @@ vim.cmd("highlight NotifyTRACEBorder guifg=#555555 guibg=#000000")
 vim.cmd("highlight NotifyTRACEIcon   guifg=#555555")
 vim.cmd("highlight NotifyTRACETitle  guifg=#555555")
 vim.cmd("highlight NotifyTRACEBody   guifg=#555555 guibg=#000000")
+
+
+-- nvim-treesitter-context
+vim.api.nvim_set_hl(0, "TreesitterContext",           { bg = "#111111" })
+vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#909090", bg = "#111111" })
+vim.api.nvim_set_hl(0, "TreesitterContextBottom",     { underline = true, sp = "#555555" })
 
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#000000" })

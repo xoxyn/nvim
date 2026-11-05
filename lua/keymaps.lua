@@ -68,6 +68,11 @@ keymap("n", "<leader>ts", function()
     end
 end)
 
+keymap("n", "<leader>tc", "<cmd>TSContext toggle<cr>", { desc = "Toggle context" })
+keymap("n", "[c", function()
+    require("treesitter-context").go_to_context(vim.v.count1)
+end, { desc = "Jump to function start" })
+
 -- gitsigns
 keymap("n", "<leader>gb",
     function()
