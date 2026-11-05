@@ -39,10 +39,7 @@ opt.sidescrolloff = 8
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldenable = true
-opt.foldlevel = 0
-opt.foldlevelstart = 0   -- open buffers with folds closed
-opt.foldminlines = 60    -- only folds longer than this can close
-opt.foldtext = ""        -- show the real signature line
+opt.foldlevel = 2
 opt.guicursor = ""
 
 vim.loader.enable();
