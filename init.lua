@@ -36,13 +36,13 @@ opt.splitright = true
 opt.splitbelow = true
 opt.scrolloff = 8
 opt.sidescrolloff = 8
-opt.foldlevelstart = 99
-opt.foldenable = true
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldlevel = 99
-opt.foldlevelstart = 99
 opt.foldenable = true
+opt.foldlevel = 0
+opt.foldlevelstart = 0   -- open buffers with folds closed
+opt.foldminlines = 60    -- only folds longer than this can close
+opt.foldtext = ""        -- show the real signature line
 opt.guicursor = ""
 
 vim.loader.enable();
@@ -395,13 +395,7 @@ require("cmake-tools").setup({
 
 vim.api.nvim_create_autocmd('FileType', {
     callback = function()
-        local ok = pcall(vim.treesitter.start)
-        if ok then
-            vim.wo.foldmethod = "expr"
-            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            vim.wo.foldlevel = 99
-            vim.wo.foldenable = true
-        end
+        pcall(vim.treesitter.start)
     end,
 })
 
