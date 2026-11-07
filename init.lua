@@ -336,6 +336,16 @@ require('treesitter-context').setup({
 -- Parsers
 require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake', 'glsl', 'markdown_inline', 'regex', 'luadoc', 'vim', 'diff' }
 
+
+-- For jsonl files 
+vim.filetype.add({
+  extension = {
+    jsonl = 'jsonl',
+  },
+})
+
+vim.treesitter.language.register('json', 'jsonl')
+
 require('image').setup({
     backend = "kitty",
     processor = "magick_cli",
