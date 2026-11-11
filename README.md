@@ -2,4 +2,4 @@
 
 > migrating from 0.11 to 0.12, using `vim.pack`
 
-![preview](assets/im-e.png)
+![preview](assets/img-e.png)
