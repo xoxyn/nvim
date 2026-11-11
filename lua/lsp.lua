@@ -1,7 +1,8 @@
-local lsp = vim.lsp
+-- ── LspAttach: buffer-local keymaps + semantic tokens ───────────────
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local buf = args.buf
+        local lsp = vim.lsp
         local k = function(mode, lhs, rhs) vim.keymap.set(mode, lhs, rhs, { buffer = buf }) end
         k('n', 'gd', lsp.buf.definition)
         k('n', 'gD', lsp.buf.declaration)
@@ -10,182 +11,51 @@ vim.api.nvim_create_autocmd('LspAttach', {
         k('n', 'K', lsp.buf.hover)
         k('n', '<leader>rn', lsp.buf.rename)
         k('n', '<leader>ca', lsp.buf.code_action)
-        -- Use conform for formatting (falls back to LSP if no formatter configured)
+        -- conform first, LSP as fallback
         k('n', '<leader>f', function()
             require('conform').format({ async = true, lsp_fallback = true })
         end)
 
-        -- Removed this for Digraphs
-        -- k('i', '<C-k>', function()
-        --     require('blink.cmp').show()
-        -- end)
-
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local client = lsp.get_client_by_id(args.data.client_id)
         if client and client:supports_method('textDocument/semanticTokens') then
-            vim.lsp.semantic_tokens.enable(true, { bufnr = buf })
+            lsp.semantic_tokens.enable(true, { bufnr = buf })
         end
     end,
 })
 
-local function start(server, config)
-    vim.api.nvim_create_autocmd('FileType', {
-        pattern = config.filetypes,
-        callback = function()
-            -- Merge blink.cmp capabilities so completions work across all servers
-            local capabilities = require('blink.cmp').get_lsp_capabilities()
-            vim.lsp.start(vim.tbl_extend('keep', config, {
-                name = server,
-                root_dir = vim.fs.root(0, config.root_markers or { '.git' }),
-                capabilities = capabilities,
-            }))
-        end,
-    })
-end
-
-start('rust-analyzer', {
-    cmd = { 'rust-analyzer' },
-    filetypes = { 'rust' },
-    root_markers = { 'Cargo.toml' },
+-- ── Defaults for every server ───────────────────────────────────────
+vim.lsp.config('*', {
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
 })
 
-start('lua-language-server', {
-    cmd = { 'lua-language-server' },
-    filetypes = { 'lua' },
-    root_markers = { '.luarc.json', '.git' },
+-- ── Overrides (only where you differ from nvim-lspconfig defaults) ──
+vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
             runtime = { version = 'LuaJIT' },
             workspace = {
                 checkThirdParty = false,
-                library = vim.api.nvim_get_runtime_file('', true),
+                library = { vim.env.VIMRUNTIME },
             },
             diagnostics = { globals = { 'vim' } },
         },
     },
 })
 
-start('gopls', {
-    cmd = { 'gopls' },
-    filetypes = { 'go' },
-    root_markers = { 'go.mod', '.git' },
+vim.lsp.config('emmet_language_server', {
+    init_options = { showExpandedAbbreviation = 'always' },
 })
 
-start('zls', {
-    cmd = { 'zls' },
-    filetypes = { 'zig' },
-    root_markers = { 'build.zig', '.git' },
-})
-
-start('ts_ls', {
-    cmd = { 'typescript-language-server', '--stdio' },
-    filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
-    root_markers = { 'package.json', 'tsconfig.json', '.git' },
-})
-
-start('clangd', {
-    cmd = { 'clangd' },
-    filetypes = { 'c', 'cpp' },
-    root_markers = { 'compile_commands.json', 'CMakeLists.txt', '.git' },
-})
-
-start('pyright', {
-    cmd = { 'pyright-langserver', '--stdio' },
-    filetypes = { 'python' },
-    root_markers = { 'pyproject.toml', 'setup.py', '.git' },
-})
-
-start('cssls', {
-    cmd = { 'vscode-css-language-server', '--stdio' },
-    filetypes = { 'css', 'scss', 'less' },
-    root_markers = { 'package.json', '.git' },
-})
-
-start('html', {
-    cmd = { 'vscode-html-language-server', '--stdio' },
-    filetypes = { 'html' },
-    -- Added index.html as fallback so standalone files still get LSP
+-- standalone .html files outside a project still get a root
+vim.lsp.config('html', {
     root_markers = { 'package.json', 'index.html', '.git' },
 })
 
-start('svelte', {
-    cmd = { 'svelteserver', '--stdio' },
-    filetypes = { 'svelte' },
-    root_markers = { 'svelte.config.js', 'package.json', '.git' },
-})
-
-start('jsonls', {
-    cmd = { 'vscode-json-language-server', '--stdio' },
-    filetypes = { 'json', 'jsonc' },
-    root_markers = { 'package.json', '.git' },
-})
-
-start('bashls', {
-    cmd = { 'bash-language-server', 'start' },
-    filetypes = { 'sh', 'bash' },
-    root_markers = { '.git' },
-})
-
-start('dockerls', {
-    cmd = { 'docker-langserver', '--stdio' },
-    filetypes = { 'dockerfile' },
-    root_markers = { 'Dockerfile', '.git' },
-})
-
-start('taplo', {
-    cmd = { 'taplo', 'lsp', 'stdio' },
-    filetypes = { 'toml' },
-    root_markers = { '.git' },
-})
-
-start('yamlls', {
-    cmd = { 'yaml-language-server', '--stdio' },
-    filetypes = { 'yaml', 'yml' },
-    root_markers = { '.git' },
-})
-
-start('tailwindcss', {
-    cmd = { 'tailwindcss-language-server', '--stdio' },
-    filetypes = { 'html', 'css', 'javascript', 'typescript', 'svelte', 'javascriptreact', 'typescriptreact' },
-    root_markers = { 'tailwind.config.js', 'tailwind.config.ts', 'package.json', '.git' },
-})
-
-start('r_language_server', {
-    cmd = { 'R', '--no-echo', '-e', 'languageserver::run()' },
-    filetypes = { 'r', 'rmd' },
-    root_markers = { '.Rproj', 'DESCRIPTION', '.git' },
-})
-
-start('jdtls', {
-    cmd = { 'jdtls' },
-    filetypes = { 'java' },
-    root_markers = { 'pom.xml', 'build.gradle', '.git' },
-})
-
-start('neocmake', {
-    cmd = { 'neocmakelsp', 'stdio' },
-    filetypes = { 'cmake' },
-    root_markers = { 'CMakeLists.txt', '.git' },
-})
-
-start('emmet_language_server', {
-    cmd = { 'emmet-language-server', '--stdio' },
-    filetypes = { 'html', 'css', 'scss', 'less', 'javascriptreact', 'typescriptreact', 'svelte' },
-    root_markers = { 'package.json', '.git' },
-    init_options = {
-        showExpandedAbbreviation = "always",
-    },
-})
-
-start('glsl_analyzer', {
-    cmd = { 'glsl_analyzer' },
-    filetypes = {
-        'glsl',
-        'vert',
-        'tesc',
-        'tese',
-        'frag',
-        'geom',
-        'comp',
-    },
-    root_markers = { '.git' },
+-- ── Enable ──────────────────────────────────────────────────────────
+vim.lsp.enable({
+    'rust_analyzer', 'lua_ls', 'gopls', 'zls', 'ts_ls', 'clangd',
+    'pyright', 'cssls', 'html', 'svelte', 'jsonls', 'bashls',
+    'dockerls', 'taplo', 'yamlls', 'tailwindcss',
+    'r_language_server', 'jdtls', 'neocmake',
+    'emmet_language_server', 'glsl_analyzer',
 })

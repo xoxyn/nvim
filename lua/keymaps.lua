@@ -7,18 +7,22 @@ keymap("n", "<leader>T", "<cmd>Telescope<cr>")
 local mono_active = false
 
 keymap("n", "<leader>tm", function()
-    if mono_active then
-        vim.cmd("colorscheme default")
-        vim.cmd("syntax off")
-        vim.cmd("highlight Normal guibg=#000000")
-        vim.cmd("highlight NormalNC guibg=#000000")
-        vim.cmd("highlight SignColumn guibg=#000000")
-        mono_active = false
-    else
-        vim.cmd("colorscheme monochrome")
-        mono_active = true
-    end
-end)
+    local files = vim.fn.globpath(vim.fn.stdpath("config") .. "/colors", "*.lua", false, true)
+    local themes = vim.tbl_map(function(f) return vim.fn.fnamemodify(f, ":t:r") end, files)
+    vim.ui.select(themes, { prompt = "Theme:" }, function(choice)
+        if choice then vim.cmd.colorscheme(choice) end
+    end)
+end, { desc = "Pick theme" })
+-- keymap("n", "<leader>tm", function()
+--     if mono_active then
+--         vim.cmd("colorscheme default")
+--         vim.cmd("syntax off")
+--         mono_active = false
+--     else
+--         vim.cmd("colorscheme monochrome")
+--         mono_active = true
+--     end
+-- end)
 keymap({ "n", "v" }, "<leader>d", '"_d', { desc = "Black hole delete" })
 keymap('n', '<leader>ft', '<cmd>TodoTelescope<CR>')
 keymap('n', '<C-u>', '<C-u>zz')

@@ -1,4 +1,3 @@
-require("lsp")
 require("keymaps")
 require("builds_cpp")
 
@@ -8,8 +7,6 @@ local colors = {
     light_gray = "#222222",
     gray       = "#555555",
 }
-
--- vim.cmd("colorscheme monochrome")
 
 local opt = vim.opt
 opt.clipboard = "unnamedplus"
@@ -43,6 +40,7 @@ opt.foldlevel = 2
 opt.guicursor = ""
 
 vim.loader.enable();
+vim.cmd.colorscheme("everforest")
 -- Plugins --
 
 local gh = function(x) return 'https://github.com/' .. x end
@@ -77,6 +75,7 @@ vim.pack.add({ gh('esmuellert/codediff.nvim') })
 vim.pack.add({ gh('stevearc/conform.nvim') }) -- Added: formatter (prettier etc.)
 -- vim.pack.add({ gh('vhyrro/luarocks.nvim') }) -- only if using magick_rock
 vim.pack.add({ gh('Civitasv/cmake-tools.nvim') })
+vim.pack.add({ gh('neovim/nvim-lspconfig') })
 
 
 require('trouble').setup()
@@ -157,16 +156,6 @@ require("codediff").setup({
 })
 
 require('todo-comments').setup()
-
-vim.cmd("highlight TelescopeNormal          guibg=#000000 guifg=#ffffff")
-vim.cmd("highlight TelescopeBorder          guibg=#000000 guifg=#555555")
-vim.cmd("highlight TelescopePromptNormal    guibg=#111111 guifg=#ffffff")
-vim.cmd("highlight TelescopePromptBorder    guibg=#111111 guifg=#555555")
-vim.cmd("highlight TelescopePromptTitle     guibg=#555555 guifg=#000000")
-vim.cmd("highlight TelescopePreviewTitle    guibg=#000000 guifg=#555555")
-vim.cmd("highlight TelescopeResultsTitle    guibg=#000000 guifg=#000000")
-vim.cmd("highlight TelescopeSelection       guibg=#222222 guifg=#ffffff")
-vim.cmd("highlight TelescopeMatching        guifg=#ffffff gui=bold")
 
 require('toggleterm').setup({
     size = 15,
@@ -308,6 +297,7 @@ require('mason-lspconfig').setup({
     ensure_installed = { 'lua_ls', 'rust_analyzer', 'gopls', 'zls', 'ts_ls', 'clangd', 'html', 'cssls', 'svelte', 'pyright', 'jsonls', 'taplo', 'yamlls', 'bashls', 'dockerls', 'tailwindcss' },
     automatic_installation = true,
 })
+require("lsp")
 
 require("oil").setup({
     view_options = {
@@ -337,11 +327,11 @@ require('treesitter-context').setup({
 require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake', 'glsl', 'markdown_inline', 'regex', 'luadoc', 'vim', 'diff' }
 
 
--- For jsonl files 
+-- For jsonl files
 vim.filetype.add({
-  extension = {
-    jsonl = 'jsonl',
-  },
+    extension = {
+        jsonl = 'jsonl',
+    },
 })
 
 vim.treesitter.language.register('json', 'jsonl')
@@ -418,45 +408,6 @@ keymap('n', ';b', builtin.buffers)
 keymap('n', ';h', builtin.help_tags)
 
 vim.cmd("syntax off")
-vim.cmd("highlight Normal guibg=#000000")
-vim.cmd("highlight NormalNC guibg=#000000")
-vim.cmd("highlight SignColumn guibg=#000000")
-
-vim.cmd("highlight NotifyERRORBorder guifg=#555555 guibg=#000000")
-vim.cmd("highlight NotifyERRORIcon   guifg=#ffffff")
-vim.cmd("highlight NotifyERRORTitle  guifg=#ffffff")
-vim.cmd("highlight NotifyERRORBody   guifg=#ffffff guibg=#000000")
-
-vim.cmd("highlight NotifyWARNBorder  guifg=#555555 guibg=#000000")
-vim.cmd("highlight NotifyWARNIcon    guifg=#ffffff")
-vim.cmd("highlight NotifyWARNTitle   guifg=#ffffff")
-vim.cmd("highlight NotifyWARNBody    guifg=#ffffff guibg=#000000")
-
-vim.cmd("highlight NotifyINFOBorder  guifg=#555555 guibg=#000000")
-vim.cmd("highlight NotifyINFOIcon    guifg=#ffffff")
-vim.cmd("highlight NotifyINFOTitle   guifg=#ffffff")
-vim.cmd("highlight NotifyINFOBody    guifg=#ffffff guibg=#000000")
-
-vim.cmd("highlight NotifyDEBUGBorder guifg=#555555 guibg=#000000")
-vim.cmd("highlight NotifyDEBUGIcon   guifg=#555555")
-vim.cmd("highlight NotifyDEBUGTitle  guifg=#555555")
-vim.cmd("highlight NotifyDEBUGBody   guifg=#555555 guibg=#000000")
-
-vim.cmd("highlight NotifyTRACEBorder guifg=#555555 guibg=#000000")
-vim.cmd("highlight NotifyTRACEIcon   guifg=#555555")
-vim.cmd("highlight NotifyTRACETitle  guifg=#555555")
-vim.cmd("highlight NotifyTRACEBody   guifg=#555555 guibg=#000000")
-
-
--- nvim-treesitter-context
-vim.api.nvim_set_hl(0, "TreesitterContext",           { bg = "#111111" })
-vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#909090", bg = "#111111" })
-vim.api.nvim_set_hl(0, "TreesitterContextBottom",     { underline = true, sp = "#555555" })
-
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "OilDirIcon", { fg = "#ffffff" })
-vim.api.nvim_set_hl(0, "OilDir", { fg = "#ffffff" })
 
 local alpha = require('alpha')
 local dashboard = require('alpha.themes.startify')
