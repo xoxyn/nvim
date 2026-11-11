@@ -1,4 +1,3 @@
--- ── LspAttach: buffer-local keymaps + semantic tokens ───────────────
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local buf = args.buf
@@ -23,12 +22,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- ── Defaults for every server ───────────────────────────────────────
 vim.lsp.config('*', {
     capabilities = require('blink.cmp').get_lsp_capabilities(),
 })
 
--- ── Overrides (only where you differ from nvim-lspconfig defaults) ──
+-- Overrides
 vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
@@ -46,12 +44,12 @@ vim.lsp.config('emmet_language_server', {
     init_options = { showExpandedAbbreviation = 'always' },
 })
 
--- standalone .html files outside a project still get a root
+-- html 
 vim.lsp.config('html', {
     root_markers = { 'package.json', 'index.html', '.git' },
 })
 
--- ── Enable ──────────────────────────────────────────────────────────
+-- Enable
 vim.lsp.enable({
     'rust_analyzer', 'lua_ls', 'gopls', 'zls', 'ts_ls', 'clangd',
     'pyright', 'cssls', 'html', 'svelte', 'jsonls', 'bashls',
