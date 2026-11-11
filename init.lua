@@ -173,14 +173,15 @@ require("auto-session").setup({
 
 require('lualine').setup({
     options = {
-        theme = {
-            normal   = { a = { bg = colors.white, fg = colors.black, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
-            -- insert   = { a = { bg = colors.light_gray, fg = colors.black, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
-            visual   = { a = { bg = colors.gray, fg = colors.white, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
-            -- command  = { a = { bg = colors.gray, fg = colors.white, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
-            -- replace  = { a = { bg = colors.black, fg = colors.white, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
-            -- inactive = { a = { bg = colors.black, fg = colors.gray, gui = "bold" }, b = { bg = colors.black, fg = colors.gray }, c = { bg = colors.black, fg = colors.gray } },
-        },
+        theme = "auto",
+        -- theme = {
+        --     normal   = { a = { bg = colors.white, fg = colors.black, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
+        --     insert   = { a = { bg = colors.light_gray, fg = colors.black, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
+        --     visual   = { a = { bg = colors.gray, fg = colors.white, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
+        --     command  = { a = { bg = colors.gray, fg = colors.white, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
+        --     replace  = { a = { bg = colors.black, fg = colors.white, gui = "bold" }, b = { bg = colors.light_gray, fg = colors.black }, c = { bg = colors.black, fg = colors.white } },
+        --     inactive = { a = { bg = colors.black, fg = colors.gray, gui = "bold" }, b = { bg = colors.black, fg = colors.gray }, c = { bg = colors.black, fg = colors.gray } },
+        -- },
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
     },
@@ -446,4 +447,3 @@ vim.api.nvim_create_user_command("Digraphs", function()
     vim.cmd("put =execute('digraphs')")
     vim.cmd("1delete")
 end, {})
-
