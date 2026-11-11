@@ -50,6 +50,8 @@ hl("SignColumn", { bg = t.bg })
 hl("NormalFloat", { bg = t.bg })
 hl("FloatBorder", { bg = t.bg })
 
+-- TODO: test
+
 -- telescope
 hl("TelescopeNormal", { fg = t.bright, bg = t.bg })
 hl("TelescopeBorder", { fg = t.dim, bg = t.bg })
