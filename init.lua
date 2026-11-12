@@ -41,7 +41,7 @@ opt.guicursor = ""
 vim.opt.list = true
 vim.opt.listchars = {
     space = "·",
-    tab = "→",
+    tab = ">>",
     nbsp = "␣",
 }
 
