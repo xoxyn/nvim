@@ -52,6 +52,8 @@ keymap('n', '<leader>xw', "<cmd>Trouble diagnostics toggle<cr>")
 keymap("n", "<leader>fq", "<cmd>FlutterQuit<CR>")
 keymap("n", "<leader>wr", "<cmd>AutoSession restore<CR>")
 keymap("n", "<leader>ws", "<cmd>AutoSession save<CR>")
+keymap("n", "<C-j>", ":m .+1<CR>==")
+keymap("n", "<C-k>", ":m .-2<CR>==")
 keymap("n", "<leader>z", "za", { desc = "Toggle fold" })
 keymap("n", "<leader>ts", function()
     if vim.b.ts_disabled then

@@ -38,6 +38,12 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldenable = true
 opt.foldlevel = 2
 opt.guicursor = ""
+vim.opt.list = true
+vim.opt.listchars = {
+    space = "·",
+    tab = "→",
+    nbsp = "␣",
+}
 
 vim.loader.enable();
 vim.cmd.colorscheme("everforest")
