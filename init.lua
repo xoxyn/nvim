@@ -40,7 +40,7 @@ opt.foldlevel = 2
 opt.guicursor = ""
 vim.opt.list = true
 vim.opt.listchars = {
-    space = "·",
+    -- space = "·",
     tab = ">>",
     nbsp = "␣",
 }
