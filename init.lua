@@ -335,7 +335,7 @@ require('treesitter-context').setup({
 
 
 -- Parsers
-require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'jsonc', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake', 'glsl', 'markdown_inline', 'regex', 'luadoc', 'vim', 'diff' }
+require('nvim-treesitter').install { 'rust', 'javascript', 'zig', 'lua', 'vimdoc', 'go', 'query', 'markdown', 'cpp', 'css', 'json', 'html', 'dockerfile', 'svelte', 'python', 'r', 'java', 'bash', 'yaml', 'dockerfile', 'typescript', 'tsx', 'toml', 'cmake', 'glsl', 'markdown_inline', 'regex', 'luadoc', 'vim', 'diff' }
 
 
 -- For jsonl files
