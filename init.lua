@@ -9,7 +9,11 @@ local colors = {
 }
 
 local opt = vim.opt
-opt.clipboard = "unnamedplus"
+vim.api.nvim_create_autocmd('UIEnter', {
+    callback = function()
+        vim.o.clipboard = 'unnamedplus'
+    end,
+})
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "yes"
