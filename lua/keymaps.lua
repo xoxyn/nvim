@@ -54,6 +54,8 @@ keymap("n", "<leader>wr", "<cmd>AutoSession restore<CR>")
 keymap("n", "<leader>ws", "<cmd>AutoSession save<CR>")
 keymap("n", "<C-j>", ":m .+1<CR>==")
 keymap("n", "<C-k>", ":m .-2<CR>==")
+keymap("n", "]h", function() require("gitsigns").nav_hunk("next") end, { desc = "Next git hunk" })
+keymap("n", "[h", function() require("gitsigns").nav_hunk("prev") end, { desc = "Prev git hunk" })
 keymap("n", "<leader>z", "za", { desc = "Toggle fold" })
 keymap("n", "<leader>ts", function()
     if vim.b.ts_disabled then
